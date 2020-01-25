@@ -61,7 +61,7 @@ namespace BRConselho.Avaliacao.Model.Repository.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to BRCAvaliacaoConnection.
         /// </summary>
         internal static string StrConnection {
             get {
