@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E3579800-25CF-49DF-BCCE-D3D7517CE5FF}</ProjectGuid>
+    <ProjectGuid>{38AF192C-4225-4474-BEEC-5044A523108E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BRConselho.Avaliacao.Model.Entity</RootNamespace>
-    <AssemblyName>BRConselho.Avaliacao.Model.Entity.csproj</AssemblyName>
+    <RootNamespace>BRConselho.Avaliacao.Model.Repository</RootNamespace>
+    <AssemblyName>BRConselho.Avaliacao.Model.Repository</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,16 +41,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aluno.cs" />
-    <Compile Include="Pessoa.cs" />
-    <Compile Include="Professor.cs" />
+    <Compile Include="BaseDao\BaseAvaliacaoDaoRepository.cs" />
+    <Compile Include="Dao\AlunoDao.cs" />
+    <Compile Include="Dao\PessoaDao.cs" />
+    <Compile Include="Dao\ProfessorDao.cs" />
+    <Compile Include="IDao\IAlunoDao.cs" />
+    <Compile Include="IDao\IPessoaDao.cs" />
+    <Compile Include="IDao\IProfessorDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BRConselho.Avaliacao.Model.DAO\BRConselho.Avaliacao.Model.DAO.csproj">
       <Project>{E2F136BD-0DEE-4B61-8E0E-550023A01B37}</Project>
       <Name>BRConselho.Avaliacao.Model.DAO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BRConselho.Avaliacao.Model.Entity\BRConselho.Avaliacao.Model.Entity.csproj">
+      <Project>{E3579800-25CF-49DF-BCCE-D3D7517CE5FF}</Project>
+      <Name>BRConselho.Avaliacao.Model.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
