@@ -108,6 +108,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BRConselho.Avaliacao.Web.Api\BRConselho.Avaliacao.Web.Api.csproj">
+      <Project>{D95696BB-B699-4B14-AE8E-D7D1303B936B}</Project>
+      <Name>BRConselho.Avaliacao.Web.Api</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
