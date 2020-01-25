@@ -6,6 +6,7 @@ namespace BRConselho.Avaliacao.Model.Entity
     [Table("TB_PESSOA")]
     public class Pessoa
     {
+        [Key]
         [Column("OID_PESSOA")]
         public long IdPessoa { get; set; }
 
