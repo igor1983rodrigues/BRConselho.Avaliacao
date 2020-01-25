@@ -1,41 +1,50 @@
-﻿//namespace BRConselho.Avaliacao.Web.Api
-//{
-//	internal static class StartupExtensao
-//	{
-//		public static void Configurar(this Container container)
-//		{
-//			container.Register<ITelefoneDao, TelefoneDao>();
-//			container.Register<IEmpresaDao, EmpresaDao>();
-//			container.Register<IFornecedorDao, FornecedorDao>();
-//			container.Register<IFornecedorPessoaFisicaDao, FornecedorPessoaFisicaDao>();
-//			container.Register<IFornecedorPessoaJuridicaDao, FornecedorPessoaJuridicaDao>();
-//		}
-//	}
+﻿using Microsoft.Owin.Cors;
+using Owin;
+using SimpleInjector;
+using SimpleInjector.Integration.Web.Mvc;
+using System.Reflection;
+using System.Web.Http;
+using System.Web.Mvc;
 
-//	public partial class Startup
-//	{
-//		public void ConfigureAuth(IAppBuilder app)
-//		{
-//			var container = new Container();
+using BRConselho.Avaliacao.Model.Repository.Dao;
+using BRConselho.Avaliacao.Model.Repository.IDao;
 
-//			container.Configurar();
-//			container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
-//			container.RegisterMvcIntegratedFilterProvider();
+namespace BRConselho.Avaliacao.Web.Api
+{
+    internal static class StartupExtensao
+    {
+        public static void Configurar(this Container container)
+        {
+            container.Register<IAlunoDao, AlunoDao>();
+            container.Register<IPessoaDao, PessoaDao>();
+            container.Register<IProfessorDao, ProfessorDao>();
+        }
+    }
 
-//			container.Verify();
+    public partial class Startup
+    {
+        public void ConfigureAuth(IAppBuilder app)
+        {
+            var container = new Container();
 
-//			DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+            container.Configurar();
+            container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
+            container.RegisterMvcIntegratedFilterProvider();
 
-//			var httpConfiguration = new HttpConfiguration
-//			{
-//				DependencyResolver = new SimpleInjector.Integration.WebApi.SimpleInjectorWebApiDependencyResolver(container)
-//			};
+            container.Verify();
 
-//			//-- Habilita Cores
-//			app.UseCors(CorsOptions.AllowAll);
+            DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
-//			WebApiConfig.Register(httpConfiguration);
-//			app.UseWebApi(httpConfiguration);
-//		}
-//	}
-//}
+            var httpConfiguration = new HttpConfiguration
+            {
+                DependencyResolver = new SimpleInjector.Integration.WebApi.SimpleInjectorWebApiDependencyResolver(container)
+            };
+
+            //-- Habilita Cores
+            app.UseCors(CorsOptions.AllowAll);
+
+            WebApiConfig.Register(httpConfiguration);
+            app.UseWebApi(httpConfiguration);
+        }
+    }
+}
