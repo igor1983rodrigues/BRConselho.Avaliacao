@@ -9,8 +9,8 @@ export class BaseService<T> {
 
   constructor(private httpClient: HttpClient, private urlApi: string) {}
 
-  getAll(): Observable<T> {
-    return this.httpClient.get<T>(this.Url);
+  getAll(): Observable<T[]> {
+    return this.httpClient.get<T[]>(this.Url);
   }
 
   getById(id: number): Observable<T> {
@@ -31,8 +31,7 @@ export class BaseService<T> {
     return this.httpClient.put(`${this.Url}/${id}`, jsonModel);
   }
 
-  delete(id: number, model: T): Observable<any> {
-    const jsonModel = JSON.stringify(model);
+  delete(id: number): Observable<any> {
     return this.httpClient.delete(`${this.Url}/${id}`);
   }
 }

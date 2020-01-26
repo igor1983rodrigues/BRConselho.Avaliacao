@@ -9,7 +9,7 @@ import { AlunoService } from './aluno.service';
   styleUrls: ['./aluno.component.css']
 })
 export class AlunoComponent implements OnInit, OnDestroy {
-  alunos: Aluno;
+  alunos: Aluno[];
 
   constructor(private alunoService: AlunoService) { }
 

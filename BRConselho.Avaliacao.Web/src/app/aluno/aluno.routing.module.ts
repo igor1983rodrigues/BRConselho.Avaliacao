@@ -1,3 +1,4 @@
+import { AlunoFormComponent } from './aluno-form/aluno-form.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -6,7 +7,10 @@ import { AlunoComponent } from './aluno.component';
 const routes: Routes = [{
   path: '',
   component: AlunoComponent,
-  children: []
+  children: [
+    { path: 'novo', component: AlunoFormComponent },
+    { path: ':id', component: AlunoFormComponent },
+  ]
 }];
 
 @NgModule({

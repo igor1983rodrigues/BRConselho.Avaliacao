@@ -1,15 +1,25 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Nome</th>
-      <th>Data de Nascimento</th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<section>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Data de Nascimento</th>
+        <th>
+          <a routerLink="novo">
+            <button class="btn btn-primary">Novo</button>
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <router-outlet></router-outlet>
+</section>
