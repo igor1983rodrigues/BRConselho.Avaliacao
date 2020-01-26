@@ -2,8 +2,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BRConselho.Avaliacao.Model.Entity
 {
-    [Table("TB_PROFESSOR")]
-    public class Professor: Pessoa
+    [Table("tb_professor")]
+    public class Professor: PessoaBase
     {
+        [ForeignKey("IdPessoa")]
+        public Pessoa Pessoa { get; set; }
     }
 }

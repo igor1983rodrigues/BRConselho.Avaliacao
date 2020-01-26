@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Aluno.cs" />
     <Compile Include="Pessoa.cs" />
+    <Compile Include="PessoaBase.cs" />
     <Compile Include="Professor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +53,9 @@
       <Project>{E2F136BD-0DEE-4B61-8E0E-550023A01B37}</Project>
       <Name>BRConselho.Avaliacao.Model.DAO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

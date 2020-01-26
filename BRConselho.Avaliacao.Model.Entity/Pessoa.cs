@@ -4,15 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BRConselho.Avaliacao.Model.Entity
 {
-    [Table("TB_PESSOA")]
-    public class Pessoa: BaseEntity
+    [Table("tb_pessoa")]
+    public class Pessoa: PessoaBase
     {
-        [Key]
-        [Column("OID_PESSOA")]
-        public long IdPessoa { get; set; }
-
         [Required]
-        [Column("NOME_PESSOA")]
+        [Column("nome_pessoa")]
         [StringLength(96, ErrorMessage = "O nome da pessoa deve ser menor que 96 caracteres.")]
         public string NomePessoa { get; set; }
     }

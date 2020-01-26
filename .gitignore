@@ -1,0 +1,10 @@
+bin/
+obj/
+node_modules/
+.vs/
+packages/
+package-lock.json
+dist/
+
+.vscode/*
+Thumbs.db
