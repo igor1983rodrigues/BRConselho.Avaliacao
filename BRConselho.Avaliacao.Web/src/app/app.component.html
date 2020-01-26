@@ -1,2 +1,36 @@
-<h1>{{title}}</h1>
-<router-outlet></router-outlet>
+<header>
+  <div class="container rounded bg-brcdark mt-3 p-3">
+    <nav class="navbar navbar-expand-lg">
+      <a href="#" class="navbar-brand">
+        <img
+          src="data:image/png;base64,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"
+          alt="Home Page" />
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/professor">Professores</a>
+          </li>
+          <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="/aluno">Alunos</a>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+  </div>
+</header>
+
+<main class="container mt-3 mb-3">
+  <router-outlet></router-outlet>
+</main>
+
+<footer></footer>

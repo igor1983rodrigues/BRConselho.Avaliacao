@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfessorComponent } from './professor.component';
 
+import { ProfessorRoutingModule } from './professor.routing.module';
+import { ProfessorComponent } from './professor.component';
 
 
 @NgModule({
   declarations: [ProfessorComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    ProfessorRoutingModule
   ]
 })
 export class ProfessorModule { }
