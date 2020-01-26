@@ -2,21 +2,17 @@
 using BRConselho.Avaliacao.Model.Repository.IDao;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace BRConselho.Avaliacao.Web.Api.Areas
 {
-    [RoutePrefix("api/aluno")]
-    public class AlunoController : ApiController
+    [RoutePrefix("api/professor")]
+    public class ProfessorController : ApiController
     {
-        private IAlunoDao iAlunoDao;
+        private IProfessorDao iProfessorDao;
 
-        public AlunoController(IAlunoDao iAlunoDao) => this.iAlunoDao = iAlunoDao;
+        public ProfessorController(IProfessorDao iProfessorDao) => this.iProfessorDao = iProfessorDao;
 
         [HttpGet]
         [Route("")]
@@ -24,7 +20,7 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
         {
             try
             {
-                var res = await Task.Run(() => iAlunoDao.ObterTodos());
+                var res = await Task.Run(() => iProfessorDao.ObterTodos());
 
                 return Ok(res);
             }
@@ -40,7 +36,7 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
         {
             try
             {
-                var res = await Task.Run(() => iAlunoDao.ObterPorChave(id));
+                var res = await Task.Run(() => iProfessorDao.ObterPorChave(id));
 
                 return Ok(res);
             }
@@ -57,8 +53,8 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
             try
             {
                 string message = null;
-                Aluno aluno = posted.ToObject<Aluno>();
-                var res = await Task.Run(() => this.iAlunoDao.Inserir(aluno, out message));
+                Professor professor = posted.ToObject<Professor>();
+                var res = await Task.Run(() => this.iProfessorDao.Inserir(professor, out message));
                 if (!string.IsNullOrEmpty(message))
                 {
                     throw new Exception(message);
@@ -82,16 +78,16 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
         {
             try
             {
-                if (id <= 0 || posted == null) throw new Exception("Nenhum aluno foi informado");
+                if (id <= 0 || posted == null) throw new Exception("Nenhum professor foi informado");
 
                 string message = null;
-                Aluno alunoNew = posted.ToObject<Aluno>();
+                Professor professorNew = posted.ToObject<Professor>();
 
-                Aluno alunoOld = await Task.Run(() => iAlunoDao.ObterPorChave(id));
+                Professor professorOld = await Task.Run(() => iProfessorDao.ObterPorChave(id));
 
-                if (alunoOld == null) throw new Exception("O aluno informado não está cadastrado.");
+                if (professorOld == null) throw new Exception("O professor informado não está cadastrado.");
 
-                await Task.Run(() => this.iAlunoDao.Alterar(alunoNew, out message));
+                await Task.Run(() => this.iProfessorDao.Alterar(professorNew, out message));
 
                 if (!string.IsNullOrEmpty(message))
                 {
@@ -116,11 +112,11 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
         {
             try
             {
-                if (id <= 0) throw new Exception("Nenhum aluno foi informado");
+                if (id <= 0) throw new Exception("Nenhum professor foi informado");
 
                 string message = null;
 
-                await Task.Run(() => this.iAlunoDao.Excluir(id, out message));
+                await Task.Run(() => this.iProfessorDao.Excluir(id, out message));
 
                 if (!string.IsNullOrEmpty(message))
                 {
