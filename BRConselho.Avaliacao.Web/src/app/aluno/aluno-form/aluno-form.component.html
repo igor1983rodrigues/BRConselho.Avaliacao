@@ -1,16 +1,22 @@
 <div class="container">
-  <form>
+  <form (ngSubmit)="save()">
     <div class="form-row">
       <div class="col-md-4 mb-3">
         <label for="nomePessoa">Nome</label>
-        <input type="text" class="form-control" id="nomePessoa" [(ngModel)]="model.pessoa.nomePessoa" placeholder="Nome" required>
+        <input type="text" class="form-control" id="nomePessoa" name="nomePessoa" [(ngModel)]="model.pessoa.nomePessoa"
+          placeholder="Nome" required>
       </div>
 
       <div class="col-md-4 mb-3">
         <label for="dataNascimentoAluno">Data de Nascimento</label>
-        <input type="text" class="form-control" id="dataNascimentoAluno" [(ngModel)]="model.dataNascimento" ngbDatepicker #d="ngbDatepicker" placeholder="DD/MM/AAAA" required>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        <div class="input-group">
+        <input ngbDatepicker #d="ngbDatepicker" type="text" class="form-control" id="dataNascimentoAluno"
+          [(ngModel)]="model.dataNascimento" placeholder="DD/MM/AAAA" required>
+        <div class="input-group-prepend">
+          <button  class="input-group-text" id="inputGroupPrepend" (click)="d.toggle()">
+            <fa-icon [icon]="faCalendar"></fa-icon>
+          </button>
+        </div>
         </div>
       </div>
     </div>

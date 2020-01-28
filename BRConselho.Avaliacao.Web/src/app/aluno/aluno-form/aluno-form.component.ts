@@ -3,6 +3,8 @@ import { AlunoService } from './../aluno.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import {faCalendar} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-aluno-form',
@@ -10,8 +12,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./aluno-form.component.css']
 })
 export class AlunoFormComponent implements OnInit, OnDestroy {
-  private inscricao: Subscription;
   model: Aluno;
+  faCalendar = faCalendar;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,15 +23,17 @@ export class AlunoFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.inscricao = this.route.params.subscribe(({ id }) => {
-      if (!!id) {
-        this.alunoService.getById(id).subscribe(
-          res => this.model = res,
-          error => console.error(error),
-          () => console.log('Finish')
-        );
-      }
-    });
+    // const insc: Subscription = this.route.params
+    //   .pipe(
+    //     map(({ id }) => id),
+    //     switchMap(id => this.alunoService.getById(id))
+    //   ).subscribe(
+    //     res => this.model = res,
+    //     error => console.error(error),
+    //     () => insc.unsubscribe()
+    //   );
+
+    this.model = this.route.snapshot.data.aluno;
   }
 
   save(): void {
@@ -41,7 +45,5 @@ export class AlunoFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.inscricao.unsubscribe();
-    delete this.inscricao;
   }
 }

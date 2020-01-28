@@ -1,6 +1,8 @@
-import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { environment } from './../../environments/environment';
 
 export class BaseService<T> {
   private get Url(): string {
@@ -14,7 +16,7 @@ export class BaseService<T> {
   }
 
   getById(id: number): Observable<T> {
-    return this.httpClient.get<T>(`${this.Url}/${id}`);
+    return this.httpClient.get<T>(`${this.Url}/${id}`).pipe(take(1));
   }
 
   // getByFilter(filter: any): Observable<T> {
