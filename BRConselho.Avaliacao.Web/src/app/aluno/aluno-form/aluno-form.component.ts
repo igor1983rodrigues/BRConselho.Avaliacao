@@ -1,10 +1,13 @@
-import { Aluno } from './../../entities/aluno.entity';
-import { AlunoService } from './../aluno.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import {faCalendar} from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+
+import { Aluno } from './../../entities/aluno.entity';
+import { AlunoService } from './../aluno.service';
 
 @Component({
   selector: 'app-aluno-form',
@@ -14,10 +17,12 @@ import {faCalendar} from '@fortawesome/free-solid-svg-icons';
 export class AlunoFormComponent implements OnInit, OnDestroy {
   model: Aluno;
   faCalendar = faCalendar;
+  form: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
-    private alunoService: AlunoService
+    private alunoService: AlunoService,
+    private fb: FormBuilder
   ) {
     this.model = { pessoa: {} };
   }
@@ -34,14 +39,43 @@ export class AlunoFormComponent implements OnInit, OnDestroy {
     //   );
 
     this.model = this.route.snapshot.data.aluno;
+    this.form = this.fb.group({
+      nomePessoa: [this.model.pessoa.nomePessoa, [Validators.required, Validators.maxLength(96)]],
+      dataNascimento: [this.model.dataNascimento || Date.now.toString(), Validators.required]
+    });
+
   }
 
   save(): void {
+    debugger;
+
+    const d: { year, month, day } = this.form.get('dataNascimento').value;
+    this.model.pessoa.nomePessoa = this.form.get('nomePessoa').value;
+    this.model.dataNascimento = new Date(d.year, d.month, d.day);
+
     if (!!this.model.idPessoa && this.model.idPessoa > 0) {
-      this.alunoService.put(this.model.idPessoa, this.model);
+      this.update();
     } else {
-      this.alunoService.post(this.model);
+      this.create();
     }
+  }
+
+  private create(): void {
+    const insc: Subscription = this.alunoService
+      .post(this.model)
+      .subscribe(
+        res => alert('alterado'),
+        error => console.error(error),
+        () => insc.unsubscribe());
+  }
+
+  private update(): void {
+    const insc: Subscription = this.alunoService
+      .put(this.model.idPessoa, this.model)
+      .subscribe(
+        res => alert('alterado'),
+        error => console.error(error),
+        () => insc.unsubscribe());
   }
 
   ngOnDestroy(): void {

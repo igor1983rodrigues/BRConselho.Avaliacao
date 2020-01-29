@@ -8,6 +8,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+// the second parameter 'fr' is optional
+registerLocaleData(localePt, 'pt');
+
 @NgModule({
   declarations: [
     AppComponent

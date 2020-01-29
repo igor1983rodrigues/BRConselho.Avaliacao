@@ -1,22 +1,21 @@
 <div class="container">
-  <form (ngSubmit)="save()">
+  <form [formGroup]="form" (ngSubmit)="save()">
     <div class="form-row">
       <div class="col-md-4 mb-3">
         <label for="nomePessoa">Nome</label>
-        <input type="text" class="form-control" id="nomePessoa" name="nomePessoa" [(ngModel)]="model.pessoa.nomePessoa"
-          placeholder="Nome" required>
+        <input type="text" class="form-control" id="nomePessoa" formControlName="nomePessoa" placeholder="Nome">
       </div>
 
       <div class="col-md-4 mb-3">
         <label for="dataNascimentoAluno">Data de Nascimento</label>
         <div class="input-group">
-        <input ngbDatepicker #d="ngbDatepicker" type="text" class="form-control" id="dataNascimentoAluno"
-          [(ngModel)]="model.dataNascimento" placeholder="DD/MM/AAAA" required>
-        <div class="input-group-prepend">
-          <button  class="input-group-text" id="inputGroupPrepend" (click)="d.toggle()">
-            <fa-icon [icon]="faCalendar"></fa-icon>
-          </button>
-        </div>
+          <input ngbDatepicker #d="ngbDatepicker" type="text" class="form-control" id="dataNascimentoAluno"
+            formControlName="dataNascimento" placeholder="YYYY-MM-DD">
+          <div class="input-group-prepend">
+            <button type="button" class="input-group-text" id="inputGroupPrepend" (click)="d.toggle()">
+              <fa-icon [icon]="faCalendar"></fa-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -31,8 +30,10 @@
     </div>
 
     <div>
-      <button class="btn btn-primary mr-auto" type="submit">Salvar</button>
-      <button class="btn btn-secondary">Cancelar</button>
+      <button [disabled]="form.invalid" class="btn btn-primary mr-2 ml-auto" type="submit">Salvar</button>
+      <button class="btn btn-secondary" type="button">Cancelar</button>
     </div>
   </form>
 </div>
+
+{{form.value | json}}

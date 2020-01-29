@@ -4,6 +4,18 @@
   background-color: #153c78;
 }
 
-.bg-brcprimary{
+.bg-brcprimary {
   background-color: #13376f;
+}
+
+.form-control.ng-invalid.ng-touched.ng-pristine {
+  border-color: #ff0000;
+}
+
+.form-control.ng-invalid.ng-touched:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

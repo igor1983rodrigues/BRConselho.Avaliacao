@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -7,6 +7,10 @@ import { environment } from './../../environments/environment';
 export class BaseService<T> {
   private get Url(): string {
     return `${environment.apiUrl}/${this.urlApi}`;
+  }
+
+  private get contentTypeJson(): HttpHeaders {
+    return new HttpHeaders({'Content-Type': 'application/json'});
   }
 
   constructor(private httpClient: HttpClient, private urlApi: string) {}
@@ -25,7 +29,9 @@ export class BaseService<T> {
 
   post(model: T): Observable<any> {
     const jsonModel = JSON.stringify(model);
-    return this.httpClient.post(this.Url, jsonModel);
+    return this.httpClient.post(this.Url, jsonModel, {
+      headers: this.contentTypeJson
+    });
   }
 
   put(id: number, model: T): Observable<any> {
