@@ -18,8 +18,6 @@ export class AlunoResolverGuard implements Resolve<Aluno> {
       return this.service.getById(route.params.id);
     }
 
-    return of<Aluno>({
-      pessoa: {}
-    });
+    return of<Aluno>({});
   }
 }

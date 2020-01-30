@@ -9,13 +9,14 @@
       <div class="col-md-4 mb-3">
         <label for="dataNascimentoAluno">Data de Nascimento</label>
         <div class="input-group">
-          <input ngbDatepicker #d="ngbDatepicker" type="text" class="form-control" id="dataNascimentoAluno"
+          <p-calendar formControlName="dataNascimentoAluno" dateFormat="dd/mm/yy" showButtonBar="true" showIcon="true"></p-calendar>
+          <!-- <input ngbDatepicker #d="ngbDatepicker" type="text" class="form-control" id="dataNascimentoAluno"
             formControlName="dataNascimento" placeholder="YYYY-MM-DD">
           <div class="input-group-prepend">
             <button type="button" class="input-group-text" id="inputGroupPrepend" (click)="d.toggle()">
               <fa-icon [icon]="faCalendar"></fa-icon>
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ export class AlunoFormComponent implements OnInit, OnDestroy {
     private alunoService: AlunoService,
     private fb: FormBuilder
   ) {
-    this.model = { pessoa: {} };
+    this.model = { };
   }
 
   ngOnInit() {
@@ -40,19 +40,15 @@ export class AlunoFormComponent implements OnInit, OnDestroy {
 
     this.model = this.route.snapshot.data.aluno;
     this.form = this.fb.group({
-      nomePessoa: [this.model.pessoa.nomePessoa, [Validators.required, Validators.maxLength(96)]],
-      dataNascimento: [this.model.dataNascimento || Date.now.toString(), Validators.required]
+      nomePessoa: [this.model.nomePessoa, [Validators.required, Validators.maxLength(96)]],
+      dataNascimentoAluno: [this.model.dataNascimentoAluno || new Date(), Validators.required]
     });
 
   }
 
   save(): void {
-    debugger;
-
-    const d: { year, month, day } = this.form.get('dataNascimento').value;
-    this.model.pessoa.nomePessoa = this.form.get('nomePessoa').value;
-    this.model.dataNascimento = new Date(d.year, d.month, d.day);
-
+    this.model.nomePessoa = this.form.get('nomePessoa').value;
+    this.model.dataNascimentoAluno = this.form.get('dataNascimentoAluno').value;
     if (!!this.model.idPessoa && this.model.idPessoa > 0) {
       this.update();
     } else {

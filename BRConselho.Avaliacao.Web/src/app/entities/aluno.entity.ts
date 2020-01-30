@@ -1,7 +1,5 @@
 import { Pessoa } from './pessoa.entity';
 
-export interface Aluno {
-  idPessoa?: number;
-  dataNascimento?: Date;
-  pessoa: Pessoa;
+export interface Aluno extends Pessoa {
+  dataNascimentoAluno?: Date;
 }

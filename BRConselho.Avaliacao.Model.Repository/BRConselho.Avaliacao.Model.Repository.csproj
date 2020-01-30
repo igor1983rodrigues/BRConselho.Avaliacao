@@ -66,6 +66,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BRConselho.Avaliacao.Extension\BRConselho.Avaliacao.Extension.csproj">
+      <Project>{812d71ca-2e9f-4665-a7a1-8dbb6955c4b3}</Project>
+      <Name>BRConselho.Avaliacao.Extension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BRConselho.Avaliacao.Model.DAO\BRConselho.Avaliacao.Model.DAO.csproj">
       <Project>{E2F136BD-0DEE-4B61-8E0E-550023A01B37}</Project>
       <Name>BRConselho.Avaliacao.Model.DAO</Name>

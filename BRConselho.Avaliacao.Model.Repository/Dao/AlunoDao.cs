@@ -1,3 +1,4 @@
+using BRConselho.Avaliacao.Extension;
 using BRConselho.Avaliacao.Model.Entity;
 using BRConselho.Avaliacao.Model.Repository.BaseDao;
 using BRConselho.Avaliacao.Model.Repository.IDao;
@@ -17,10 +18,9 @@ namespace BRConselho.Avaliacao.Model.Repository.Dao
                     conn.Open();
                     mensagem = null;
                     model.IdPessoa = conn.Insert(model.Pessoa) ?? 0;
-                    model.Pessoa = null;
-                    int id = conn.Insert(model) ?? 0;
-                    if (id == 0) throw new Exception("Erro ao inserir os dados. Entre em contato com o administrador.");
-                    return id;
+                    if (model.IdPessoa == 0) throw new Exception("Erro ao inserir os dados. Entre em contato com o administrador.");
+                    long? id = conn.InsertIgnoreKey<long?, Aluno>(model) ?? 0;
+                    return (int)model.IdPessoa;
                 }
                 catch (Exception ex)
                 {

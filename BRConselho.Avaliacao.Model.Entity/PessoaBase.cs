@@ -6,9 +6,5 @@ namespace BRConselho.Avaliacao.Model.Entity
 {
     public abstract class PessoaBase: BaseEntity
     {
-        [Key]
-        [Column("oid_pessoa")]
-        public long IdPessoa { get; set; }
-
     }
 }
