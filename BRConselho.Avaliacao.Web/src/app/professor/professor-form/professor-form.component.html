@@ -1,0 +1,16 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-row">
+      <div class="col-md-4 mb-3">
+        <label for="nomePessoa">Nome</label>
+        <input type="text" class="form-control" id="nomePessoa" formControlName="nomePessoa" placeholder="Nome dod professor">
+      </div>
+    </div>
+
+    <div>
+      <button [disabled]="form.invalid" class="btn btn-primary mr-2 ml-auto" type="submit">Salvar</button>
+      <button class="btn btn-secondary" type="button" (click)="voltar()">Cancelar</button>
+    </div>
+  </form>
+</div>
+

@@ -11,8 +11,15 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
     public class ProfessorController : ApiController
     {
         private IProfessorDao iProfessorDao;
+        private IPessoaDao iPessoaDao;
 
-        public ProfessorController(IProfessorDao iProfessorDao) => this.iProfessorDao = iProfessorDao;
+        public ProfessorController(
+            IProfessorDao iProfessorDao,
+            IPessoaDao iPessoaDao)
+        {
+            this.iProfessorDao = iProfessorDao;
+            this.iPessoaDao = iPessoaDao;
+        }
 
         [HttpGet]
         [Route("")]
@@ -21,6 +28,10 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
             try
             {
                 var res = await Task.Run(() => iProfessorDao.ObterTodos());
+                foreach (var item in res)
+                {
+                    item.Pessoa = await Task.Run(() => iPessoaDao.ObterPorChave(item.IdPessoa));
+                }
 
                 return Ok(res);
             }
@@ -106,7 +117,7 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
             }
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("{id:long}")]
         public async Task<IHttpActionResult> DeleteItemAsync(long id)
         {

@@ -13,6 +13,7 @@ namespace BRConselho.Avaliacao.Model.DAO.BaseRepository
     public class BaseDaoRepository<T> : IBaseDaoInterface<T> where T: BaseEntity
     {
         private string strConnection;
+        protected string StrConnection => strConnection;
 
         public BaseDaoRepository(string strConnection)
         {
@@ -96,7 +97,7 @@ namespace BRConselho.Avaliacao.Model.DAO.BaseRepository
 
         public virtual int Inserir(T model, out string mensagem, string strConnection = null)
         {
-            using (var conn = ObterConexao(strConnection ?? strConnection))
+            using (var conn = ObterConexao(strConnection ?? this.strConnection))
             {
                 try
                 {

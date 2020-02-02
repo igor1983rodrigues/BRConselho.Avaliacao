@@ -1,0 +1,37 @@
+<section>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>
+          <a routerLink="novo">
+            <button class="btn btn-primary">Novo</button>
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of professores">
+        <th [innerText]="item.idPessoa"></th>
+        <td [innerText]="item.nomePessoa"></td>
+        <td>
+          <button class="btn btn-success mr-2" (click)="editar(item.idPessoa)">
+            <fa-icon [icon]="icons.edit"></fa-icon>
+          </button>
+
+          <button class="btn btn-danger" (click)="excluir(item.idPessoa)" >
+            <fa-icon [icon]="icons.delete"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="modal-form" [hidden]="!isEdit">
+  <div>
+    <span class="close">&times;</span>
+    <router-outlet></router-outlet>
+  </div>
+</section>
