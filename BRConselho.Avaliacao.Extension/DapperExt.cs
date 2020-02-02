@@ -25,8 +25,15 @@ namespace BRConselho.Avaliacao.Extension
 
             var tableName = typeEntity.GetCustomAttribute<TableAttribute>()?.Name ?? typeEntity.Name;
 
+            TKey key = default;
             foreach (PropertyInfo item in typeEntity.GetProperties())
             {
+                if (item.GetCustomAttribute<KeyAttribute>() != null
+                    && item.GetValue(entityToInsert) != null)
+                {
+                    key = (TKey)item.GetValue(entityToInsert);
+                }
+
                 if (item.GetCustomAttribute<NotMappedAttribute>() == null
                     && item.GetCustomAttribute<ForeignKeyAttribute>() == null
                     && item.GetValue(entityToInsert) != null)
@@ -42,9 +49,12 @@ namespace BRConselho.Avaliacao.Extension
             sb.AppendFormat(" ({0}) ", string.Join(", ", columnParamNames.Keys));
             sb.AppendFormat("values (@{0}) ", string.Join(", @", columnParamNames.Values));
 
-            int i = connection.Execute(sb.ToString(), entityToInsert, commandType: CommandType.Text);
+            if (0 == connection.Execute(sb.ToString(), entityToInsert, commandType: CommandType.Text))
+            {
+                throw new InvalidOperationException("Não foi possível salvar o registro");
+            }
 
-            return default;
+            return key;
         }
     }
 }

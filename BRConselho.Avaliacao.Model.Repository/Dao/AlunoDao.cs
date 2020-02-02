@@ -32,7 +32,34 @@ namespace BRConselho.Avaliacao.Model.Repository.Dao
                     conn.Close();
                 }
             }
+        }
+
+        public override Aluno ObterPorChave(object parametros, string strConnection = null)
+        {
+            using (var conn = ObterConexao(strConnection ?? StrConnection))
+            {
+                try
+                {
+                    conn.Open();
+                    Aluno aluno = conn.Get<Aluno>(parametros);
+
+                    if (aluno != null)
+                    {
+                        aluno.Pessoa = conn.Get<Pessoa>(aluno.IdPessoa);
+                    }
+
+                    return aluno;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
 
         }
-	}
+    }
 }

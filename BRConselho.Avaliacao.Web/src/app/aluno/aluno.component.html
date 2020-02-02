@@ -13,13 +13,27 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td></td>
+      <tr *ngFor="let item of alunos">
+        <th [innerText]="item.idPessoa"></th>
+        <td [innerText]="item.nomePessoa"></td>
+        <td>{{item.dataNascimentoAluno | date:'dd/MM/yyyy'}}</td>
+        <td>
+          <button class="btn btn-success mr-2">
+            <fa-icon [icon]="icons.edit"></fa-icon>
+          </button>
+
+          <button class="btn btn-danger">
+            <fa-icon [icon]="icons.delete"></fa-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
 </section>
 
-<section>
-  <router-outlet></router-outlet>
+<section class="modal-form" [hidden]="!isEdit">
+  <div>
+    <span class="close">&times;</span>
+    <router-outlet></router-outlet>
+  </div>
 </section>

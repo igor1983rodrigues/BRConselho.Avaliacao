@@ -19,3 +19,38 @@
 button:disabled {
   cursor: not-allowed;
 }
+
+.modal-form {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 100px;
+}
+
+/* The Close Button */
+.modal-form > div > .close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.modal-form > div > .close:hover,
+.modal-form > div > .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-form > div {
+  background-color: #FFFFFF;
+  margin: auto;
+  width: 80%;
+  border-radius: 20px;
+  padding: 20px;
+}
