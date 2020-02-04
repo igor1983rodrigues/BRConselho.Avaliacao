@@ -38,6 +38,7 @@ button:disabled {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .modal-form > div > .close:hover,

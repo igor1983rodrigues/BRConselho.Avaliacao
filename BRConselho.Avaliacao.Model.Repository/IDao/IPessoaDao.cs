@@ -3,8 +3,7 @@ using BRConselho.Avaliacao.Model.Entity;
 
 namespace BRConselho.Avaliacao.Model.Repository.IDao
 {
-	public interface IPessoaDao: IBaseDaoInterface<Pessoa>
-	{
-
-	}
+    public interface IPessoaDao : IBaseDaoInterface<Pessoa>
+    {
+    }
 }

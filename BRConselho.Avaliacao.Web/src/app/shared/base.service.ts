@@ -13,7 +13,7 @@ export class BaseService<T extends any> {
     return `${environment.apiUrl}/${this.urlApi}`;
   }
 
-  private get contentTypeJson(): HttpHeaders {
+  protected get contentTypeJson(): HttpHeaders {
     return new HttpHeaders({'Content-Type': 'application/json'});
   }
 
@@ -23,6 +23,10 @@ export class BaseService<T extends any> {
 
   getAll(): Observable<T[]> {
     return this.httpClient.get<T[]>(this.Url);
+  }
+
+  protected getPartial(partialUrl: string): Observable<T[]> {
+    return this.httpClient.get<T[]>(`${this.Url}/${partialUrl}`);
   }
 
   getById(id: number): Observable<T> {

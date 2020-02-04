@@ -16,14 +16,17 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
     {
         private IAlunoDao iAlunoDao;
         private IPessoaDao iPessoaDao;
+        private IAlunoProfessorDao iAlunoProfessorDao;
 
         public AlunoController(
             IAlunoDao iAlunoDao,
-            IPessoaDao iPessoaDao
+            IPessoaDao iPessoaDao,
+            IAlunoProfessorDao iAlunoProfessorDao
         )
         {
             this.iAlunoDao = iAlunoDao;
             this.iPessoaDao = iPessoaDao;
+            this.iAlunoProfessorDao = iAlunoProfessorDao;
         }
 
         [HttpGet]
@@ -36,6 +39,28 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
                 foreach (var item in res)
                 {
                     item.Pessoa = await Task.Run(() => iPessoaDao.ObterPorChave(item.IdPessoa));
+                    item.Professor = await Task.Run(() => iAlunoDao.ObterProfessor(item.IdPessoa));
+                }
+
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("menores")]
+        public async Task<IHttpActionResult> ListMenoresAsync()
+        {
+            try
+            {
+                var res = await Task.Run(() => iAlunoDao.ObterMenores());
+                foreach (var item in res)
+                {
+                    item.Pessoa = await Task.Run(() => iPessoaDao.ObterPorChave(item.IdPessoa));
+                    item.Professor = await Task.Run(() => iAlunoDao.ObterProfessor(item.IdPessoa));
                 }
 
                 return Ok(res);
@@ -53,6 +78,8 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
             try
             {
                 var res = await Task.Run(() => iAlunoDao.ObterPorChave(id));
+                if (res != null)
+                    res.Professor = await Task.Run(() => iAlunoDao.ObterProfessor(res.IdPessoa));
 
                 return Ok(res);
             }
@@ -104,7 +131,31 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
                 if (alunoOld == null) throw new Exception("O aluno informado não está cadastrado.");
 
                 await Task.Run(() => this.iAlunoDao.Alterar(alunoNew, out message));
+                if (!string.IsNullOrEmpty(message))
+                {
+                    throw new Exception(message);
+                }
 
+                await Task.Run(() => this.iPessoaDao.Alterar(alunoNew.Pessoa, out message));
+                if (!string.IsNullOrEmpty(message))
+                {
+                    throw new Exception(message);
+                }
+
+                await Task.Run(() => this.iAlunoProfessorDao.ExcluirLista(new
+                {
+                    IdAluno = alunoNew.IdPessoa
+                }, out message));
+                if (!string.IsNullOrEmpty(message))
+                {
+                    throw new Exception(message);
+                }
+
+                await Task.Run(() => this.iAlunoProfessorDao.InserirAlunoProfessor(new AlunoProfessor
+                {
+                    IdAluno = alunoNew.IdPessoa,
+                    IdProfessor = alunoNew.Professor.IdPessoa
+                }, out message));
                 if (!string.IsNullOrEmpty(message))
                 {
                     throw new Exception(message);
@@ -131,6 +182,11 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
                 if (id <= 0) throw new Exception("Nenhum aluno foi informado");
 
                 string message = null;
+
+                await Task.Run(() => this.iAlunoProfessorDao.ExcluirLista(new
+                {
+                    IdAluno = id
+                }, out message));
 
                 await Task.Run(() => this.iAlunoDao.Excluir(id, out message));
 

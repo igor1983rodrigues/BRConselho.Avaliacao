@@ -16,13 +16,14 @@ export class AlunoComponent extends BaseComponent<Aluno> implements OnInit, OnDe
   alunos: Aluno[];
   icons: { edit, delete };
   emmited: Subscription;
+  mostrandoMenores: boolean;
 
   constructor(
     private alunoService: AlunoService,
-    private router: Router,
-    private route: ActivatedRoute
+    router: Router,
+    route: ActivatedRoute
   ) {
-    super();
+    super(router, route);
     this.icons = {
       edit: faEdit,
       delete: faTrashAlt
@@ -62,7 +63,17 @@ export class AlunoComponent extends BaseComponent<Aluno> implements OnInit, OnDe
   }
 
   loadAlunos(): void {
+    this.mostrandoMenores = false;
     const inscr = this.alunoService.getAll().subscribe(
+      (res: Aluno[]) => this.alunos = res,
+      ({error}) => alert(error.message),
+      () => inscr.unsubscribe()
+    );
+  }
+
+  showMenores(): void {
+    this.mostrandoMenores = true;
+    const inscr = this.alunoService.getMenores().subscribe(
       (res: Aluno[]) => this.alunos = res,
       ({error}) => alert(error.message),
       () => inscr.unsubscribe()

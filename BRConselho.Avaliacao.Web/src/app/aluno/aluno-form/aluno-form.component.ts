@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbCalendar, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 import { Aluno } from './../../entities/aluno.entity';
 import { AlunoService } from './../aluno.service';
 import { BaseComponent } from 'src/app/shared/base.component';
+import { Professor } from 'src/app/entities/professor.entity';
 
 @Component({
   selector: 'app-aluno-form',
@@ -18,36 +17,30 @@ import { BaseComponent } from 'src/app/shared/base.component';
 export class AlunoFormComponent extends BaseComponent<Aluno> implements OnInit, OnDestroy {
   faCalendar = faCalendar;
   form: FormGroup;
+  professores: Professor[];
 
   constructor(
-    private route: ActivatedRoute,
     private alunoService: AlunoService,
     private fb: FormBuilder,
-    private router: Router
+    route: ActivatedRoute,
+    router: Router
   ) {
-    super();
+    super(router, route);
   }
 
   ngOnInit() {
-    // const insc: Subscription = this.route.params
-    //   .pipe(
-    //     map(({ id }) => id),
-    //     switchMap(id => this.alunoService.getById(id))
-    //   ).subscribe(
-    //     res => this.model = res,
-    //     error => console.error(error),
-    //     () => insc.unsubscribe()
-    //   );
-
     this.isEdit = true;
     this.model = this.route.snapshot.data.aluno as Aluno;
+    this.professores = this.route.snapshot.data.professores as Professor[];
 
     if (!!this.model.dataNascimentoAluno) {
       this.model.dataNascimentoAluno = new Date(this.model.dataNascimentoAluno);
     }
 
+    this.model.professor = this.model.professor || {};
     this.form = this.fb.group({
       nomePessoa: [this.model.nomePessoa, [Validators.required, Validators.maxLength(96)]],
+      professor: [this.model.professor.idPessoa, [Validators.required]],
       dataNascimentoAluno: [this.model.dataNascimentoAluno || new Date(), Validators.required]
     });
 
@@ -57,6 +50,7 @@ export class AlunoFormComponent extends BaseComponent<Aluno> implements OnInit, 
     delete (this.model as any).pessoa;
     this.model.nomePessoa = this.form.get('nomePessoa').value;
     this.model.dataNascimentoAluno = this.form.get('dataNascimentoAluno').value;
+    this.model.professor = { idPessoa: this.form.get('professor').value };
     if (!!this.model.idPessoa && this.model.idPessoa > 0) {
       this.update();
     } else {
@@ -86,10 +80,6 @@ export class AlunoFormComponent extends BaseComponent<Aluno> implements OnInit, 
         res => this.resultCreateOrUpdate(res.message),
         error => console.error(error),
         () => insc.unsubscribe());
-  }
-
-  voltar(): void {
-    this.router.navigate(['..'], { relativeTo: this.route });
   }
 
   ngOnDestroy(): void {

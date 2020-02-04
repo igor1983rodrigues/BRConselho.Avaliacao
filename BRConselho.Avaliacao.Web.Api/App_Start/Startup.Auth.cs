@@ -18,6 +18,7 @@ namespace BRConselho.Avaliacao.Web.Api
             container.Register<IAlunoDao, AlunoDao>();
             container.Register<IPessoaDao, PessoaDao>();
             container.Register<IProfessorDao, ProfessorDao>();
+            container.Register<IAlunoProfessorDao, AlunoProfessorDao>();
         }
     }
 

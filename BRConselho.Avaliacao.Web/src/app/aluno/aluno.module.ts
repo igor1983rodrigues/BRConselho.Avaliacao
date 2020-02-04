@@ -9,6 +9,7 @@ import { AlunoRoutingModule } from './aluno.routing.module';
 import { AlunoComponent } from './aluno.component';
 import { AlunoFormComponent } from './aluno-form/aluno-form.component';
 import { AlunoService } from './aluno.service';
+import { ProfessorService } from './../professor/professor.service';
 
 
 
@@ -24,6 +25,6 @@ import { AlunoService } from './aluno.service';
     FontAwesomeModule,
     AlunoRoutingModule
   ],
-  providers: [AlunoService]
+  providers: [AlunoService, ProfessorService]
 })
 export class AlunoModule { }

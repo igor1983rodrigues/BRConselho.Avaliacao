@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,6 +17,13 @@ namespace BRConselho.Avaliacao.Model.Entity
         [ForeignKey("IdPessoa")]
         public Pessoa Pessoa { get; set; }
 
-        public Professor() => Pessoa = new Pessoa();
+        [NotMapped]
+        public IEnumerable<Aluno> Alunos { get; set; }
+
+        public Professor()
+        {
+            Pessoa = new Pessoa();
+            Alunos = new List<Aluno>();
+        }
     }
 }
