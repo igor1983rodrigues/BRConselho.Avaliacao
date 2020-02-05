@@ -1,5 +1,4 @@
 # BRConselho.Avaliacao
-- Não consegui ainda fazer o deploy do projeto Angular
 
 ## Estrutura do projeto:
 * BRConselho.Avaliacao.Extension: Extensões uteis
