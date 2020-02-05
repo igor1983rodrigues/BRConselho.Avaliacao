@@ -49,12 +49,44 @@ namespace BRConselho.Avaliacao.Extension
             sb.AppendFormat(" ({0}) ", string.Join(", ", columnParamNames.Keys));
             sb.AppendFormat("values (@{0}) ", string.Join(", @", columnParamNames.Values));
 
-            if (0 == connection.Execute(sb.ToString(), entityToInsert, commandType: CommandType.Text))
+            if (0 == connection.Execute(sb.ToString(), entityToInsert, transaction, commandTimeout, commandType: CommandType.Text))
             {
                 throw new InvalidOperationException("Não foi possível salvar o registro");
             }
 
             return key;
+        }
+
+        public static void DeleteListIgnoreKey<TEntity>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            Type typeEntity = typeof(TEntity);
+            IDictionary<string, string> columnParamNames = new Dictionary<string, string>();
+
+            var tableName = typeEntity.GetCustomAttribute<TableAttribute>()?.Name ?? typeEntity.Name;
+
+            foreach (PropertyInfo item in whereConditions.GetType().GetProperties())
+            {
+                var prop = typeEntity.GetProperty(item.Name, BindingFlags.Instance | BindingFlags.Public);
+                if (prop.GetCustomAttribute<NotMappedAttribute>() == null
+                    && prop.GetCustomAttribute<ForeignKeyAttribute>() == null
+                    && item.GetValue(whereConditions) != null)
+                {
+                    ColumnAttribute columnAttribute = prop.GetCustomAttribute<ColumnAttribute>();
+                    var columnName = columnAttribute?.Name ?? item.Name;
+                    columnParamNames.Add(columnName, item.Name);
+                }
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("delete from {0}\r\n", tableName);
+            sb.AppendLine("where 1=1");
+            foreach (KeyValuePair<string, string> item in columnParamNames)
+            {
+                sb.AppendFormat("and {0} = @{1}", item.Key, item.Value);
+                sb.AppendLine();
+            }
+
+            connection.Execute(sb.ToString(), whereConditions, transaction, commandTimeout, commandType: CommandType.Text);
         }
     }
 }

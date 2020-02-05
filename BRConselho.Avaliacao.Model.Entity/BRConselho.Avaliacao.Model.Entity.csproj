@@ -49,6 +49,7 @@
     <Compile Include="Pessoa.cs" />
     <Compile Include="PessoaBase.cs" />
     <Compile Include="Professor.cs" />
+    <Compile Include="AlunoProfessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

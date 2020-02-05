@@ -16,12 +16,12 @@ export class ProfessorFormComponent extends BaseComponent<Professor> implements 
   form: FormGroup;
 
   constructor(
-    private route: ActivatedRoute,
     private professorService: ProfessorService,
     private fb: FormBuilder,
-    private router: Router
+    route: ActivatedRoute,
+    router: Router
   ) {
-    super();
+    super(router, route);
   }
 
   ngOnInit() {

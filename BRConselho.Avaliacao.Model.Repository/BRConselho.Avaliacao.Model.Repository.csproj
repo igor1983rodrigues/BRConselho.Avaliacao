@@ -52,9 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDao\BaseAvaliacaoDaoRepository.cs" />
+    <Compile Include="Dao\AlunoProfessorDao.cs" />
     <Compile Include="Dao\AlunoDao.cs" />
     <Compile Include="Dao\PessoaDao.cs" />
     <Compile Include="Dao\ProfessorDao.cs" />
+    <Compile Include="IDao\IAlunoProfessorDao.cs" />
     <Compile Include="IDao\IAlunoDao.cs" />
     <Compile Include="IDao\IPessoaDao.cs" />
     <Compile Include="IDao\IProfessorDao.cs" />
@@ -63,6 +65,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ResourcesQueries\AlunoQueries.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlunoQueries.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -84,10 +91,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ResourcesQueries\AlunoQueries.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AlunoQueries.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

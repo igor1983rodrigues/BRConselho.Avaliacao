@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -8,8 +9,11 @@ import { BaseService } from './../shared/base.service';
   providedIn: 'root'
 })
 export class AlunoService extends BaseService<Aluno> {
-
   constructor(httpClient: HttpClient) {
     super(httpClient, 'aluno');
+  }
+
+  getMenores(): Observable<Aluno[]> {
+    return this.getPartial('menores');
   }
 }

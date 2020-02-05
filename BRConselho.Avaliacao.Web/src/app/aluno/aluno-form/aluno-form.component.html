@@ -1,3 +1,4 @@
+<span class="close" (click)="voltar()">&times;</span>
 <div class="container">
   <form [formGroup]="form" (ngSubmit)="save()">
     <div class="form-row">
@@ -10,29 +11,21 @@
         <label for="dataNascimentoAluno">Data de Nascimento</label>
         <div class="input-group">
           <p-calendar formControlName="dataNascimentoAluno" dateFormat="dd/mm/yy" showButtonBar="true" showIcon="true"></p-calendar>
-          <!-- <input ngbDatepicker #d="ngbDatepicker" type="text" class="form-control" id="dataNascimentoAluno"
-            formControlName="dataNascimento" placeholder="YYYY-MM-DD">
-          <div class="input-group-prepend">
-            <button type="button" class="input-group-text" id="inputGroupPrepend" (click)="d.toggle()">
-              <fa-icon [icon]="faCalendar"></fa-icon>
-            </button>
-          </div> -->
         </div>
       </div>
-    </div>
-    <div class="form-row">
+
       <div class="col-md-3 mb-3">
-        <label for="validationDefault04">State</label>
-        <select class="custom-select" id="validationDefault04" required>
+        <label for="validationDefault04">Professor</label>
+        <select class="custom-select" id="validationDefault04" formControlName="professor" required>
           <option selected disabled [value]="undefined">Selecione ...</option>
-          <option>...</option>
+          <option *ngFor="let item of professores" [value]="item.idPessoa" [innerText]="item.nomePessoa"></option>
         </select>
       </div>
     </div>
 
     <div>
       <button [disabled]="form.invalid" class="btn btn-primary mr-2 ml-auto" type="submit">Salvar</button>
-      <button class="btn btn-secondary" type="button">Cancelar</button>
+      <button class="btn btn-secondary" type="button" (click)="voltar()" >Cancelar</button>
     </div>
   </form>
 </div>

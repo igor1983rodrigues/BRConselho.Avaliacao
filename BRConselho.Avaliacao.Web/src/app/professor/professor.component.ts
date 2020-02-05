@@ -18,10 +18,10 @@ export class ProfessorComponent extends BaseComponent<Professor> implements OnIn
 
   constructor(
     private professorService: ProfessorService,
-    private router: Router,
-    private route: ActivatedRoute
+    router: Router,
+    route: ActivatedRoute
   ) {
-    super();
+    super(router, route);
     this.icons = {
       edit: faEdit,
       delete: faTrashAlt
@@ -61,7 +61,7 @@ export class ProfessorComponent extends BaseComponent<Professor> implements OnIn
   loadProfessores(): void {
     const inscr = this.professorService.getAll().subscribe(
       (res: Professor[]) => this.professores = res,
-      ({error}) => alert(error.message),
+      ({ error }) => alert(error.message),
       () => inscr.unsubscribe()
     );
   }

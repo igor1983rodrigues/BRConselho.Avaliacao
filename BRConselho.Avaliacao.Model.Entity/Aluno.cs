@@ -20,6 +20,13 @@ namespace BRConselho.Avaliacao.Model.Entity
         [ForeignKey("IdPessoa")]
         public Pessoa Pessoa { get; set; }
 
-        public Aluno() => Pessoa = new Pessoa();
+        [NotMapped]
+        public Professor Professor { get; set; }
+
+        public Aluno()
+        {
+            Pessoa = new Pessoa();
+            Professor = new Professor();
+        }
     }
 }
