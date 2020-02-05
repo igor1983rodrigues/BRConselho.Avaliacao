@@ -71,6 +71,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlunoQueries.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResourcesQueries\ProfessorQueries.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProfessorQueries.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BRConselho.Avaliacao.Extension\BRConselho.Avaliacao.Extension.csproj">
@@ -94,6 +99,10 @@
     <EmbeddedResource Include="ResourcesQueries\AlunoQueries.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AlunoQueries.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourcesQueries\ProfessorQueries.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProfessorQueries.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Aluno } from './../entities/aluno.entity';
@@ -6,6 +6,7 @@ import { AlunoService } from './aluno.service';
 import { BaseComponent } from '../shared/base.component';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LoadScreenService } from '../shared/loadscreen/loadscreen.service';
 
 @Component({
   selector: 'app-aluno',
@@ -16,7 +17,7 @@ export class AlunoComponent extends BaseComponent<Aluno> implements OnInit, OnDe
   alunos: Aluno[];
   icons: { edit, delete };
   emmited: Subscription;
-  mostrandoMenores: boolean;
+  mostrandoMaiores: boolean;
 
   constructor(
     private alunoService: AlunoService,
@@ -51,32 +52,48 @@ export class AlunoComponent extends BaseComponent<Aluno> implements OnInit, OnDe
 
   excluir(id) {
     if (confirm('Deseja mesmo excluir o item?')) {
+      LoadScreenService.start();
       const inscr = this.alunoService.delete(id).subscribe(
         res => {
+          LoadScreenService.stop();
           alert(res.message);
           this.loadAlunos();
         },
-        ({ error }) => alert(error.message),
-        () => inscr.unsubscribe()
+        ({ error }) => {
+          alert(error.message);
+          LoadScreenService.stop();
+        },
+        () => {
+          LoadScreenService.stop();
+          inscr.unsubscribe();
+        }
       );
     }
   }
 
-  loadAlunos(): void {
-    this.mostrandoMenores = false;
-    const inscr = this.alunoService.getAll().subscribe(
-      (res: Aluno[]) => this.alunos = res,
-      ({error}) => alert(error.message),
-      () => inscr.unsubscribe()
-    );
+  private get getUrlSubscribe(): Observable<Aluno[]> {
+    if (this.mostrandoMaiores) {
+      return this.alunoService.getMaiores();
+    } else {
+      return this.alunoService.getAll();
+    }
   }
 
-  showMenores(): void {
-    this.mostrandoMenores = true;
-    const inscr = this.alunoService.getMenores().subscribe(
-      (res: Aluno[]) => this.alunos = res,
-      ({error}) => alert(error.message),
-      () => inscr.unsubscribe()
+  loadAlunos(): void {
+    LoadScreenService.start();
+    const inscr = this.getUrlSubscribe.subscribe(
+      (res: Aluno[]) => {
+        LoadScreenService.stop();
+        this.alunos = res;
+      },
+      ({ error }) => {
+        LoadScreenService.stop();
+        alert(error.message);
+      },
+      () => {
+        LoadScreenService.stop();
+        inscr.unsubscribe();
+      }
     );
   }
 

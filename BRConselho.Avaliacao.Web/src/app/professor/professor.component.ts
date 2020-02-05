@@ -1,4 +1,5 @@
-import { Subscription } from 'rxjs';
+import { LoadScreenService } from './../shared/loadscreen/loadscreen.service';
+import { Subscription, Observable } from 'rxjs';
 import { ProfessorService } from './professor.service';
 import { Professor } from './../entities/professor.entity';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -15,6 +16,7 @@ export class ProfessorComponent extends BaseComponent<Professor> implements OnIn
   icons: { edit, delete };
   professores: Professor[];
   emmited: Subscription;
+  porFaixaEtaria: boolean;
 
   constructor(
     private professorService: ProfessorService,
@@ -22,6 +24,7 @@ export class ProfessorComponent extends BaseComponent<Professor> implements OnIn
     route: ActivatedRoute
   ) {
     super(router, route);
+    this.porFaixaEtaria = false;
     this.icons = {
       edit: faEdit,
       delete: faTrashAlt
@@ -35,11 +38,7 @@ export class ProfessorComponent extends BaseComponent<Professor> implements OnIn
     );
 
     this.isEdit = false;
-    this.professorService.getAll().subscribe(
-      res => this.professores = res,
-      error => console.error(error),
-      () => console.log('Complete')
-    );
+    this.loadProfessores();
   }
 
   editar(id: number) {
@@ -58,11 +57,29 @@ export class ProfessorComponent extends BaseComponent<Professor> implements OnIn
     }
   }
 
+  private get subscribeProgessor(): Observable<Professor[]> {
+    if (this.porFaixaEtaria) {
+      return this.professorService.getByFaixaEtaria(15, 17);
+    } else {
+      return this.professorService.getAll();
+    }
+  }
+
   loadProfessores(): void {
-    const inscr = this.professorService.getAll().subscribe(
-      (res: Professor[]) => this.professores = res,
-      ({ error }) => alert(error.message),
-      () => inscr.unsubscribe()
+    LoadScreenService.start();
+    const inscr = this.subscribeProgessor.subscribe(
+      (res: Professor[]) => {
+        LoadScreenService.stop();
+        this.professores = res;
+      },
+      ({ error }) => {
+        LoadScreenService.stop();
+        alert(error.message);
+      },
+      () => {
+        LoadScreenService.stop();
+        inscr.unsubscribe();
+      }
     );
   }
 

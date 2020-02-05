@@ -13,7 +13,7 @@ export class AlunoService extends BaseService<Aluno> {
     super(httpClient, 'aluno');
   }
 
-  getMenores(): Observable<Aluno[]> {
-    return this.getPartial('menores');
+  getMaiores(): Observable<Aluno[]> {
+    return this.getPartial('maiores');
   }
 }

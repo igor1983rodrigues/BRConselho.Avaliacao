@@ -1,4 +1,16 @@
-<article>
+<article class="p-2 rounded-sm bg-white mb-2">
+  <div class="col-auto my-1">
+    <div class="custom-control custom-checkbox mr-sm-2">
+      <input type="checkbox" class="custom-control-input" id="porFaixaEtaria" name="porFaixaEtaria"
+        [(ngModel)]="porFaixaEtaria" (change)="loadProfessores()">
+      <label class="custom-control-label" for="porFaixaEtaria">
+        Lista com os professores cuja média de idade de seus alunos é de 15 a 17 anos
+      </label>
+    </div>
+  </div>
+</article>
+
+<article class="p-2 rounded-sm bg-white">
   <table class="table">
     <thead>
       <tr>
@@ -20,7 +32,7 @@
             <fa-icon [icon]="icons.edit"></fa-icon>
           </button>
 
-          <button class="btn btn-danger" (click)="excluir(item.idPessoa)" >
+          <button class="btn btn-danger" (click)="excluir(item.idPessoa)">
             <fa-icon [icon]="icons.delete"></fa-icon>
           </button>
         </td>
