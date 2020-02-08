@@ -255,7 +255,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\AlunoController.cs" />
     <Compile Include="Areas\ProfessorController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,38 +263,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Scripts\libs\1-es2015.06e297114fd02eb88fcd.js" />
-    <Content Include="Scripts\libs\1-es5.06e297114fd02eb88fcd.js" />
-    <Content Include="Scripts\libs\3rdpartylicenses.txt" />
-    <Content Include="Scripts\libs\7-es2015.82def8e3d6f3b7dbfd68.js" />
-    <Content Include="Scripts\libs\7-es5.82def8e3d6f3b7dbfd68.js" />
-    <Content Include="Scripts\libs\8-es2015.919e4a6a9a511cc39c0f.js" />
-    <Content Include="Scripts\libs\8-es5.919e4a6a9a511cc39c0f.js" />
-    <Content Include="Scripts\libs\color.c7a33805ffda0d32bd2a.png" />
-    <Content Include="Scripts\libs\favicon.ico" />
-    <Content Include="Scripts\libs\hue.0614c27197fc3ce572e1.png" />
-    <Content Include="Scripts\libs\index.html" />
-    <Content Include="Scripts\libs\line.567f57385ea3dde2c9ae.gif" />
-    <Content Include="Scripts\libs\loading.8732a6660b528fadfaeb.gif" />
-    <Content Include="Scripts\libs\main-es2015.0da6c136c9c847b78d40.js" />
-    <Content Include="Scripts\libs\main-es5.0da6c136c9c847b78d40.js" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-300.27ef0b062b2e221df16f.svg" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-700.2e00b2635b51ba336b4b.svg" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-regular.7aab4c13671282c90669.svg" />
-    <Content Include="Scripts\libs\password-meter.d59e6dc2616c53ce8e77.png" />
-    <Content Include="Scripts\libs\polyfills-es2015.79b5019f4dff069483c4.js" />
-    <Content Include="Scripts\libs\polyfills-es5.7d7d156430c9cd92193e.js" />
-    <Content Include="Scripts\libs\primeicons.e5e0e94474d5fd92e7e8.svg" />
-    <Content Include="Scripts\libs\runtime-es2015.1cd0beac474b9453d9f0.js" />
-    <Content Include="Scripts\libs\runtime-es5.1cd0beac474b9453d9f0.js" />
-    <Content Include="Scripts\libs\styles.80bc7af24c446f4bc15f.css" />
-    <Content Include="Scripts\libs\vendor-es2015.9711295d403280979542.js" />
-    <Content Include="Scripts\libs\vendor-es5.9711295d403280979542.js" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -306,25 +273,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-300.177cc92d2e8027712a8c.ttf" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-300.521d17bc9f3526c690e8.woff" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-300.60c866748ff15f5b347f.woff2" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-300.76b56857ebbae3a5a689.eot" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-700.148a6749baa5f658a451.eot" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-700.623e3205570002af47fc.woff" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-700.7e08cc656863d52bcb5c.ttf" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-700.d08c09f2f169f4a6edbc.woff2" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-regular.9dce7f01715340861bdb.eot" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-regular.bf2d0783515b7d75c35b.woff" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-regular.c045b73d86803686f4cd.ttf" />
-    <Content Include="Scripts\libs\open-sans-v15-latin-regular.cffb686d7d2f4682df83.woff2" />
-    <Content Include="Scripts\libs\primeicons.2d2afb2719a1ee903e57.eot" />
-    <Content Include="Scripts\libs\primeicons.66ee0deb739ca71f0ecd.woff" />
-    <Content Include="Scripts\libs\primeicons.df0140f8e79ecfeffaf8.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BRConselho.Avaliacao.Model.DAO\BRConselho.Avaliacao.Model.DAO.csproj">
