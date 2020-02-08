@@ -22,6 +22,21 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
         }
 
         [HttpGet]
+        [Route("idadealuno/{from:int}/{to:int}")]
+        public IHttpActionResult GetProfessorMediaIdadeAlunos(int from, int to)
+        {
+            try
+            {
+                var res = iProfessorDao.GetProfessorMediaIdadeAlunos(from, to);
+
+                return Ok(res);
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
         [Route("")]
         public async Task<IHttpActionResult> ListAsync()
         {

@@ -8,6 +8,6 @@ namespace BRConselho.Avaliacao.Model.Repository.IDao
     {
         IEnumerable<Aluno> ObterAlunos(object param = null);
         Professor ObterProfessor(long idAluno);
-        IEnumerable<Aluno> ObterMenores();
+        IEnumerable<Aluno> ObterMaiores();
     }
 }

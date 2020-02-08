@@ -29,7 +29,7 @@ namespace BRConselho.Avaliacao.Model.Repository.Dao
 
                     if (model.Professor != null)
                     {
-                        conn.Insert(new AlunoProfessor
+                        conn.InsertIgnoreKey(new AlunoProfessor
                         {
                             IdAluno = model.IdPessoa,
                             IdProfessor = model.Professor.IdPessoa
@@ -93,7 +93,7 @@ namespace BRConselho.Avaliacao.Model.Repository.Dao
             return res;
         }
 
-        public IEnumerable<Aluno> ObterMenores()
+        public IEnumerable<Aluno> ObterMaiores()
         {
             var param = new
             {

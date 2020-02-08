@@ -2,8 +2,11 @@ using BRConselho.Avaliacao.Extension;
 using BRConselho.Avaliacao.Model.Entity;
 using BRConselho.Avaliacao.Model.Repository.BaseDao;
 using BRConselho.Avaliacao.Model.Repository.IDao;
+using BRConselho.Avaliacao.Model.Repository.ResourcesQueries;
 using Dapper;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BRConselho.Avaliacao.Model.Repository.Dao
 {
@@ -82,6 +85,25 @@ namespace BRConselho.Avaliacao.Model.Repository.Dao
                     conn.Close();
                 }
             }
+        }
+
+        public IEnumerable<Professor> GetProfessorMediaIdadeAlunos(int from, int to)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(ProfessorQueries.GetProfessorMediaIdadeAlunos);
+            sb.AppendLine("and\tProfessorTemp.MediaIdadeAlunos between @from and @to");
+
+            string[] splitOn = new string[] { "IdPessoa" };
+            Func<Professor, Pessoa, Professor> map = (professor, pessoa) => {
+                professor.Pessoa = pessoa;
+                return professor;
+            };
+
+            return ExecuteQuery(sb.ToString(), new
+            {
+                from,
+                to
+            }, map, splitOn);
         }
     }
 }

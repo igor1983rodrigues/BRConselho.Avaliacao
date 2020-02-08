@@ -5,6 +5,7 @@ import { Professor } from './../../entities/professor.entity';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { LoadScreenService } from 'src/app/shared/loadscreen/loadscreen.service';
 
 @Component({
   selector: 'app-professor-form',
@@ -35,6 +36,7 @@ export class ProfessorFormComponent extends BaseComponent<Professor> implements 
   }
 
   save(): void {
+    LoadScreenService.start();
     delete (this.model as any).pessoa;
     this.model.nomePessoa = this.form.get('nomePessoa').value;
     if (!!this.model.idPessoa && this.model.idPessoa > 0) {
@@ -48,9 +50,18 @@ export class ProfessorFormComponent extends BaseComponent<Professor> implements 
     const insc: Subscription = this.professorService
       .post(this.model)
       .subscribe(
-        res => this.resultCreateOrUpdate(res.message),
-        error => console.error(error),
-        () => insc.unsubscribe());
+        res => {
+          LoadScreenService.stop();
+          this.resultCreateOrUpdate(res.message);
+        },
+        error => {
+          LoadScreenService.stop();
+          console.error(error);
+        },
+        () => {
+          LoadScreenService.stop();
+          insc.unsubscribe();
+        });
   }
 
   private resultCreateOrUpdate(message: string): void {
@@ -63,9 +74,18 @@ export class ProfessorFormComponent extends BaseComponent<Professor> implements 
     const insc: Subscription = this.professorService
       .put(this.model.idPessoa, this.model)
       .subscribe(
-        res => this.resultCreateOrUpdate(res.message),
-        error => console.error(error),
-        () => insc.unsubscribe());
+        res => {
+          LoadScreenService.stop();
+          this.resultCreateOrUpdate(res.message);
+        },
+        ({ error }) => {
+          LoadScreenService.stop();
+          console.error(error);
+        },
+        () => {
+          LoadScreenService.stop();
+          insc.unsubscribe();
+        });
   }
 
   voltar(): void {

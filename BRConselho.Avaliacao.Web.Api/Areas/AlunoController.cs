@@ -51,12 +51,12 @@ namespace BRConselho.Avaliacao.Web.Api.Areas
         }
 
         [HttpGet]
-        [Route("menores")]
+        [Route("maiores")]
         public async Task<IHttpActionResult> ListMenoresAsync()
         {
             try
             {
-                var res = await Task.Run(() => iAlunoDao.ObterMenores());
+                var res = await Task.Run(() => iAlunoDao.ObterMaiores());
                 foreach (var item in res)
                 {
                     item.Pessoa = await Task.Run(() => iPessoaDao.ObterPorChave(item.IdPessoa));

@@ -1,9 +1,16 @@
-<article>
-  <button class="btn btn-primary" [hidden]="mostrandoMenores" (click)="showMenores()">Somente menores de 16 anos</button>
-  <button class="btn btn-primary" [hidden]="!mostrandoMenores" (click)="loadAlunos()">Mostra Todos os alunos</button>
+<article class="p-2 rounded-sm bg-white mb-2">
+  <div class="col-auto my-1">
+    <div class="custom-control custom-checkbox mr-sm-2">
+      <input type="checkbox" class="custom-control-input" id="mostrandoMaiores" name="mostrandoMaiores"
+        [(ngModel)]="mostrandoMaiores" (change)="loadAlunos()">
+      <label class="custom-control-label" for="mostrandoMaiores">
+        Lista com os alunos maiores de 16 anos
+      </label>
+    </div>
+  </div>
 </article>
 
-<article>
+<article class="p-2 rounded-sm bg-white">
   <table class="table">
     <thead>
       <tr>
