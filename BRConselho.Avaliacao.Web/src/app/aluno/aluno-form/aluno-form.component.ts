@@ -8,6 +8,7 @@ import { Aluno } from './../../entities/aluno.entity';
 import { AlunoService } from './../aluno.service';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { Professor } from 'src/app/entities/professor.entity';
+import { LoadScreenService } from 'src/app/shared/loadscreen/loadscreen.service';
 
 @Component({
   selector: 'app-aluno-form',
@@ -47,6 +48,7 @@ export class AlunoFormComponent extends BaseComponent<Aluno> implements OnInit, 
   }
 
   save(): void {
+    LoadScreenService.start();
     delete (this.model as any).pessoa;
     this.model.nomePessoa = this.form.get('nomePessoa').value;
     this.model.dataNascimentoAluno = this.form.get('dataNascimentoAluno').value;
@@ -68,18 +70,36 @@ export class AlunoFormComponent extends BaseComponent<Aluno> implements OnInit, 
     const insc: Subscription = this.alunoService
       .post(this.model)
       .subscribe(
-        res => this.resultCreateOrUpdate(res.message),
-        error => console.error(error),
-        () => insc.unsubscribe());
+        res => {
+          this.resultCreateOrUpdate(res.message);
+          LoadScreenService.stop();
+        },
+        error => {
+          LoadScreenService.stop();
+          console.error(error);
+        },
+        () => {
+          LoadScreenService.stop();
+          insc.unsubscribe();
+        });
   }
 
   private update(): void {
     const insc: Subscription = this.alunoService
       .put(this.model.idPessoa, this.model)
       .subscribe(
-        res => this.resultCreateOrUpdate(res.message),
-        error => console.error(error),
-        () => insc.unsubscribe());
+        res => {
+          this.resultCreateOrUpdate(res.message);
+          LoadScreenService.stop();
+        },
+        ({error}) => {
+          alert(error.message);
+          LoadScreenService.stop();
+        },
+        () => {
+          LoadScreenService.stop();
+          insc.unsubscribe();
+        });
   }
 
   ngOnDestroy(): void {

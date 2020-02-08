@@ -9,6 +9,7 @@ import { CalendarModule } from 'primeng/calendar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoadScreenModule } from './shared/loadscreen/loadscreen.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     FontAwesomeModule,
     CalendarModule,
+    LoadScreenModule,
     AppRoutingModule
   ],
   // providers: [{
